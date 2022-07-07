@@ -117,6 +117,7 @@ public class AddressBook {
         }
     }
 
+    // ability to view
     public static void searchByCityOrState() {
         System.out.println("Enter the AddressBookName ");
         String bookName = scanner.next();

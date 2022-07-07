@@ -151,21 +151,23 @@ public class AddressBookClass {
             System.out.println(i + 1 + "-->Contact added successfully");
         }
     }
-    public  void showContacts() {
+
+    public void showContacts() {
         if (contact.isEmpty()) {
             System.out.println("Address book is empty");
         } else {
             Set<Contacts> productSet = contact.stream().collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Contacts::toString))));
             productSet.forEach(System.out::println);
         }
-    }
+    }// ability to view
+
     public void searchMethod() {
         System.out.println("Enter the city or state to search Contact ");
         String input = scanner.next();
-            for (Contacts book : contact) {
-                if (book.getCity().equals(input) || book.getState().equals(input)) {
-                    System.out.println("Matches with city name contact is :" + book);
-                }
+        for (Contacts book : contact) {
+            if (book.getCity().equals(input) || book.getState().equals(input)) {
+                System.out.println("Matches with city name contact is :" + book);
             }
+        }
     }
 }
