@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class AddressBookClass {
     static final Scanner scanner = new Scanner(System.in);
-    static final ArrayList<Contacts> contact = new ArrayList<>();
+    static final LinkedList<Contacts> contact = new LinkedList<>();
 
     public static void main(String[] args) {
         System.out.println("Welcome to AddressBook program");
@@ -158,5 +158,14 @@ public class AddressBookClass {
             Set<Contacts> productSet = contact.stream().collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Contacts::toString))));
             productSet.forEach(System.out::println);
         }
+    }
+    public void searchMethod() {
+        System.out.println("Enter the city or state to search Contact ");
+        String input = scanner.next();
+            for (Contacts book : contact) {
+                if (book.getCity().equals(input) || book.getState().equals(input)) {
+                    System.out.println("Matches with city name contact is :" + book);
+                }
+            }
     }
 }
