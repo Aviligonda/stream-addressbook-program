@@ -1,7 +1,7 @@
 package com.bridzelab;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookClass {
     static final Scanner scanner = new Scanner(System.in);
@@ -149,6 +149,14 @@ public class AddressBookClass {
         for (int i = 0; i < num; i++) {
             addContact();
             System.out.println(i + 1 + "-->Contact added successfully");
+        }
+    }
+    public  void showContacts() {
+        if (contact.isEmpty()) {
+            System.out.println("Address book is empty");
+        } else {
+            Set<Contacts> productSet = contact.stream().collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Contacts::toString))));
+            productSet.forEach(System.out::println);
         }
     }
 }
