@@ -9,9 +9,29 @@ public class AddressBookClass {
 
     public static void main(String[] args) {
         System.out.println("Welcome to AddressBook program");
-        AddressBookClass addressBookClass =new AddressBookClass();
-        addressBookClass.addContact();
-        addressBookClass.editContacts();
+        AddressBookClass addressBookClass = new AddressBookClass();
+        boolean condition = true;
+        while (condition) {
+            System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.Exit");
+            int options = scanner.nextInt();
+            switch (options) {
+                case 1:
+                    addressBookClass.addContact();
+                    break;
+                case 2:
+                    addressBookClass.editContacts();
+                    break;
+                case 3:
+                    addressBookClass.deleteContact();
+                    break;
+                case 4:
+                    condition = false;
+                    System.out.println("Exiting the loop....");
+                    break;
+                default:
+                    System.out.println("Enter the correct number");
+            }
+        }
     }
 
     public void addContact() {
@@ -36,6 +56,7 @@ public class AddressBookClass {
         System.out.println(contact);
         System.out.println("Contact added success fully");
     }
+
     public void editContacts() {
         System.out.println("Enter first or last name  to edit ");
         String editName = scanner.next();
@@ -102,4 +123,20 @@ public class AddressBookClass {
         }
     }
 
+
+    public void deleteContact() {
+        System.out.println("Enter first or last name to Delete contact");
+        String confirmName = scanner.next();
+        for (int i = 0; i < contact.size(); i++) {
+            if (contact.get(i).getFirstName().equals(confirmName) || contact.get(i).getLastName().equals(confirmName)) {
+                Contacts person = contact.get(i);
+                contact.remove(person);
+                System.out.println("Contact delete successfully");
+            } else {
+                System.out.println("Contact not found in AddressBook");
+            }
+
+            System.out.println(contact);
+        }
+    }
 }
