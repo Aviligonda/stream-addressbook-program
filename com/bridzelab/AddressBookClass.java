@@ -12,7 +12,7 @@ public class AddressBookClass {
         AddressBookClass addressBookClass = new AddressBookClass();
         boolean condition = true;
         while (condition) {
-            System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.Exit");
+            System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.AddMultipleContacts\n5.Exit");
             int options = scanner.nextInt();
             switch (options) {
                 case 1:
@@ -25,6 +25,9 @@ public class AddressBookClass {
                     addressBookClass.deleteContact();
                     break;
                 case 4:
+                    addressBookClass.addMultipleContacts();
+                    break;
+                case 5:
                     condition = false;
                     System.out.println("Exiting the loop....");
                     break;
@@ -137,6 +140,15 @@ public class AddressBookClass {
             }
 
             System.out.println(contact);
+        }
+    }
+
+    public void addMultipleContacts() {
+        System.out.println("Enter number of contacts added to the AddressBook");
+        int num = scanner.nextInt();
+        for (int i = 0; i < num; i++) {
+            addContact();
+            System.out.println(i + 1 + "-->Contact added successfully");
         }
     }
 }
