@@ -179,4 +179,11 @@ public class AddressBookClass {
         }
     }
 
+    public void sortingByCity() {
+        if (contact.isEmpty()) {
+            System.out.println("Contact book is empty");
+        } else {
+            contact.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
+        }
+    }
 }
