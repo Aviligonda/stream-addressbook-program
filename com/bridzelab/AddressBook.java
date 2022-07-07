@@ -14,7 +14,7 @@ public class AddressBook {
         System.out.println("Welcome To AddressBook program");
         boolean condition = true;
         while (condition) {
-            System.out.println("choose options \n1 : AddNewAddressBook\n2 : AddContact\n3 : EditContact\n4 : Delete Contact\n5 : Add multiple contacts\n6 : ShowContacts \n7 : SearchContactByCityOrState \n8 : Exit");
+            System.out.println("choose options \n1 : AddNewAddressBook\n2 : AddContact\n3 : EditContact\n4 : Delete Contact\n5 : Add multiple contacts\n6 : ShowContacts \n7 : MoreOptions \n8 : Exit");
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
@@ -36,7 +36,7 @@ public class AddressBook {
                     showContactsInAddressBook();
                     break;
                 case 7:
-                    searchByCityOrState();
+                    moreOptions();
                     break;
                 case 8:
                     condition = false;
@@ -48,6 +48,27 @@ public class AddressBook {
         }
     }
 
+    public static void moreOptions() {
+        boolean condition = true;
+        while (condition) {
+            System.out.println("Choose the options\n1.SearchContactByCity\n2.SortingByPersonName\n3.Exit ");
+            int option = scanner.nextInt();
+            switch (option) {
+                case 1:
+                    searchByCityOrState();
+                    break;
+                case 2:
+                    sortingByPersonName();
+                    break;
+                case 3:
+                    condition = false;
+                    System.out.println("Back To Main menu");
+                    break;
+                default:
+                    System.out.println("Enter the correct option");
+            }
+        }
+    }
 
     public static void addAddressBook() {
         System.out.println("Create a New Address Book\nEnter the New AddressBook name");
@@ -128,4 +149,16 @@ public class AddressBook {
             addressBook.searchMethod();
         }
     }
+
+    public static void sortingByPersonName() {
+        System.out.println("Enter the AddressBookName ");
+        String bookName = scanner.next();
+        AddressBookClass book = bookClassMap.get(bookName);
+        if (book == null) {
+            System.out.println("No book found with these name");
+        } else {
+            addressBook.sortingByPersonName();
+        }
+    }
+
 }

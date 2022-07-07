@@ -170,4 +170,13 @@ public class AddressBookClass {
             }
         }
     }
+
+    public void sortingByPersonName() {
+        if (contact.isEmpty()) {
+            System.out.println("Contacts book is empty");
+        } else {
+            contact.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(System.out::println);
+        }
+    }
+
 }
