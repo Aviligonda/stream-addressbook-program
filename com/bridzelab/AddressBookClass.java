@@ -12,27 +12,19 @@ public class AddressBookClass {
         AddressBookClass addressBookClass = new AddressBookClass();
         boolean condition = true;
         while (condition) {
-            System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.AddMultipleContacts\n5.Exit");
+            System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.AddMultipleContacts\n5.CountByCity\n6.Exit");
             int options = scanner.nextInt();
             switch (options) {
-                case 1:
-                    addressBookClass.addContact();
-                    break;
-                case 2:
-                    addressBookClass.editContacts();
-                    break;
-                case 3:
-                    addressBookClass.deleteContact();
-                    break;
-                case 4:
-                    addressBookClass.addMultipleContacts();
-                    break;
-                case 5:
+                case 1 -> addressBookClass.addContact();
+                case 2 -> addressBookClass.editContacts();
+                case 3 -> addressBookClass.deleteContact();
+                case 4 -> addressBookClass.addMultipleContacts();
+                case 5 -> addressBookClass.countCity();
+                case 6 -> {
                     condition = false;
                     System.out.println("Exiting the loop....");
-                    break;
-                default:
-                    System.out.println("Enter the correct number");
+                }
+                default -> System.out.println("Enter the correct number");
             }
         }
     }
@@ -164,11 +156,12 @@ public class AddressBookClass {
     public void searchMethod() {
         System.out.println("Enter the city or state to search Contact ");
         String input = scanner.next();
-        for (Contacts book : contact) {
-            if (book.getCity().equals(input) || book.getState().equals(input)) {
-                System.out.println("Matches with city name contact is :" + book);
-            }
-        }
+        contact.stream().filter(city -> city.getCity().equals(input)).filter(state -> state.getState().equals(input)).forEach(System.out::println);
+//        for (Contacts book : contact) {
+//            if (book.getCity().equals(input) || book.getState().equals(input)) {
+//                System.out.println("Matches with city name contact is :" + book);
+//            }
+//        }
     }
 
     public void sortingByPersonName() {
@@ -185,5 +178,12 @@ public class AddressBookClass {
         } else {
             contact.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(System.out::println);
         }
+    }
+
+    public void countCity() {
+        System.out.println("Enter a City name ");
+        String input = scanner.next();
+        long count = contact.stream().filter(city -> city.getCity().equals(input)).count();
+        System.out.println("No of contacts Matched " + input + " city is : " + count);
     }
 }
