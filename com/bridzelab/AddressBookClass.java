@@ -6,6 +6,14 @@ import java.util.stream.Collectors;
 public class AddressBookClass {
     static final Scanner scanner = new Scanner(System.in);
     static final LinkedList<Contacts> contact = new LinkedList<>();
+    private List<Contacts> contactsList;
+
+    public AddressBookClass(List<Contacts> contactsList) {
+        this.contactsList = contactsList;
+    }
+
+    public AddressBookClass() {
+    }
 
     public static void main(String[] args) {
         System.out.println("Welcome to AddressBook program");
@@ -15,7 +23,7 @@ public class AddressBookClass {
             System.out.println("Choose the options \n1.AddContact\n2.EditContact\n3.DeleteContact\n4.AddMultipleContacts\n5.CountByCity\n6.Exit");
             int options = scanner.nextInt();
             switch (options) {
-                case 1 -> addressBookClass.addContact();
+                case 1 -> addressBookClass.addContact(scanner);
                 case 2 -> addressBookClass.editContacts();
                 case 3 -> addressBookClass.deleteContact();
                 case 4 -> addressBookClass.addMultipleContacts();
@@ -29,7 +37,7 @@ public class AddressBookClass {
         }
     }
 
-    public void addContact() {
+    public void addContact(Scanner scanner) {
         Contacts addressBook = new Contacts();
         System.out.println("Enter a first name:");
         addressBook.setFirstName(scanner.next());
@@ -47,9 +55,21 @@ public class AddressBookClass {
         addressBook.setZip((scanner.next()));
         System.out.println("Enter a phone number:");
         addressBook.setPhoneNum((scanner.next()));
-        contact.add(addressBook);
-        System.out.println(contact);
+        contactsList.add(new Contacts(addressBook.getFirstName(), addressBook.getLastName(), addressBook.getAddress(), addressBook.getCity(), addressBook.getState(), addressBook.getEmail(), addressBook.getZip(), addressBook.getPhoneNum()));
         System.out.println("Contact added success fully");
+    }
+
+    public void writeTheData(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            System.out.println("\n writing Employee Payroll Roaster to console \n" + contactsList);
+        else if (ioService.equals(IOService.FILE_IO))
+            new AddressBookFileIO().writeData(contactsList);
+    }
+
+    public long readContactDetails(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO))
+            this.contactsList = new AddressBookFileIO().readData();
+        return contactsList.size();
     }
 
     public void editContacts() {
@@ -118,7 +138,6 @@ public class AddressBookClass {
         }
     }
 
-
     public void deleteContact() {
         System.out.println("Enter first or last name to Delete contact");
         String confirmName = scanner.next();
@@ -139,7 +158,7 @@ public class AddressBookClass {
         System.out.println("Enter number of contacts added to the AddressBook");
         int num = scanner.nextInt();
         for (int i = 0; i < num; i++) {
-            addContact();
+            addContact(scanner);
             System.out.println(i + 1 + "-->Contact added successfully");
         }
     }
@@ -186,4 +205,6 @@ public class AddressBookClass {
         long count = contact.stream().filter(city -> city.getCity().equals(input)).count();
         System.out.println("No of contacts Matched " + input + " city is : " + count);
     }
+
+    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_ID}
 }
